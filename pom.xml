@@ -12,6 +12,7 @@
         <module>MyBatis-demo1</module>
         <module>MyBatis-demo2</module>
         <module>MyBatis-demo3</module>
+        <module>Mybatis-demo4</module>
     </modules>
 
     <properties>
@@ -59,6 +60,12 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
             <version>2.20.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.3.3</version>
         </dependency>
     </dependencies>
 

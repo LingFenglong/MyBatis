@@ -7,4 +7,37 @@
     <select id="getEmpAndDeptByStepTwo" resultType="Dept">
         select * from t_dept where did = #{did};
     </select>
+
+    
+    <resultMap id="deptAndEmpResultMap" type="Dept">
+        <id property="did" column="did"/>
+        <result property="deptName" column="dept_name"/>
+        <collection property="emps" ofType="Emp">
+            <id property="eid" column="eid"/>
+            <result property="empName" column="emp_name"/>
+            <result property="age" column="age"/>
+            <result property="sex" column="sex"/>
+            <result property="email" column="email"/>
+        </collection>
+    </resultMap>
+<!--    Dept getDeptAndEmp(@Param("did") Integer did);-->
+    <select id="getDeptAndEmp" resultMap="deptAndEmpResultMap">
+        select * from t_dept as d
+        left join t_emp as e
+        on e.did = d.did
+        where d.did = #{did};
+    </select>
+
+    
+    <resultMap id="DeptAndEmpStepResultMap" type="Dept">
+        <id property="did" column="did"/>
+        <result property="deptName" column="dept_name"/>
+        <collection property="emps" select="com.lingfenglong.mybatis.mappers.EmpMapper.getDeptAndEmpStep" column="did"/>
+    </resultMap>
+    
+<!--    Dept getDeptAndEmpStep(@Param("did") Integer did);-->
+    <select id="getDeptAndEmpStep" resultMap="DeptAndEmpStepResultMap">
+        select * from t_dept where did = #{did};
+    </select>
+
 </mapper>

@@ -13,5 +13,5 @@ public class Dept {
     private Integer did;
     private String deptName;
 
-//    private List<Emp> emps;
+    private List<Emp> emps;
 }

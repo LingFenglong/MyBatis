@@ -74,7 +74,9 @@
         <result property="age" column="age"/>
         <result property="sex" column="sex"/>
         <result property="email" column="email"/>
-        <association property="dept" select="com.lingfenglong.mybatis.mappers.DeptMapper.getEmpAndDeptByStepTwo" column="did"/>
+        <association property="dept"
+                     select="com.lingfenglong.mybatis.mappers.DeptMapper.getEmpAndDeptByStepTwo" column="did"/>
+<!--        fetchType="eager"-->
     </resultMap>
     
 <!--    Emp getEmpAndDeptByStepOne(@Param("eid") Integer eid);-->
@@ -82,4 +84,8 @@
         select * from t_emp where eid = #{eid};
     </select>
 
+<!--    List<Emp> getDeptAndEmpStep(@Param("did") Integer did);-->
+    <select id="getDeptAndEmpStep" resultType="Emp">
+        select * from t_emp where did = #{did};
+    </select>
 </mapper>
