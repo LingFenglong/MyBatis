@@ -13,6 +13,7 @@
         <module>MyBatis-demo2</module>
         <module>MyBatis-demo3</module>
         <module>Mybatis-demo4</module>
+        <module>ssm</module>
     </modules>
 
     <properties>

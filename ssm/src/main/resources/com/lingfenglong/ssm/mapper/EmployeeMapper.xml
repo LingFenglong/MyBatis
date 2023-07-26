@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lingfenglong.ssm.mapper.EmployeeMapper">
+    <!-- List<Employee> getAllEmployee(); -->
+    <select id="getAllEmployee" resultType="Employee">
+        select * from employees
+    </select>
+
+    <!-- List<Map<String, Object>> getEmployeePage(); -->
+    <resultMap id="employeePageResultMap" type="Employee">
+        <id property="employeeId" column="employee_id"/>
+        <result property="firstName" column="first_name"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="salary" column="salary"/>
+        <result property="commissionPct" column="commission_pct"/>
+        <!-- <result property="jobId"/> -->
+        <association property="job" select="com.lingfenglong.ssm.mapper.JobMapper.getJobById" column="job_id"/>
+        <!-- <result property="managerId"/> -->
+        <association property="manager" select="com.lingfenglong.ssm.mapper.EmployeeMapper.getEmployeeById" column="manager_id"/>
+        <!-- <result property="departmentId"/> -->
+        <association property="department" select="com.lingfenglong.ssm.mapper.DepartmentMapper.getDepartmentById" column="department_id"/>
+    </resultMap>
+    <select id="getEmployeePage" resultMap="employeePageResultMap">
+        select * from employees
+    </select>
+
+    <!-- Employee getEmployeeById(@Param("employeeId") Integer employeeId); -->
+    <select id="getEmployeeById" resultMap="employeePageResultMap">
+        select * from employees where employee_id = #{employeeId}
+    </select>
+
+    <!-- void deleteEmployeeById(@Param("employeeId") Integer employeeId); -->
+    <delete id="deleteEmployeeById">
+        delete from employees where employee_id = #{employeeId}
+    </delete>
+
+    <!-- void updateEmployee(@Param("employee") Employee employee); -->
+    <update id="updateEmployee">
+        update employees as e set
+        e.first_name = #{employee.firstName}, e.last_name = #{employee.lastName}, e.email = #{employee.email},
+        e.phone_number = #{employee.phoneNumber}, e.hire_date = #{employee.hireDate}, e.job_id = #{employee.job.job_id},
+        e.salary = #{employee.salary}, e.commission_pct = #{employee.commissionPct}, e.manager_id = #{employee.mamager.managerId},
+        e.department_id = #{employee.department.departmentId}
+        where e.employee_id = #{employee.id}
+    </update>
+</mapper>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Employee List</title>
+	<link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+<table>
+	<tr>
+		<th colspan="12">员工列表</th>
+	</tr>
+	<tr>
+		<th>序号</th>
+		<th>员工姓名</th>
+		<th>邮箱</th>
+		<th>电话号码</th>
+		<th>薪资</th>
+		<th>经理</th>
+		<th>部门名称</th>
+		<th>操作</th>
+	</tr>
+	<tr th:each="employee, status : ${page.list}">
+		<td th:text="${status.count}"></td>
+		<td>
+			<a th:href="'/employee/' + ${employee.employeeId}"
+			   th:text="${employee.firstName + ' ' + employee.lastName}"></a>
+		</td>
+		<td th:text="${employee.email}"></td>
+		<td th:text="${employee.phoneNumber}"></td>
+		<td th:text="${employee.salary}"></td>
+		<td>
+			<a th:if="${employee.manager} != null"
+			   th:href="'/employee/' + ${employee.managerId}"
+			   th:text="${employee?.manager?.firstName + ' ' + employee?.manager?.lastName}"></a>
+			<span th:if="${employee.manager} == null" th:text="无"></span>
+		</td>
+		<td th:text="${employee?.department?.departmentName}"></td>
+		<td>
+			<a class="deleteLink" th:href="@{'/employee/' + ${employee.employeeId}}">删除</a>
+			<a th:href="@{'/employee/' + ${employee.employeeId}}">修改</a>
+		</td>
+	</tr>
+</table>
+<div style="text-align: center; font-size: 16px; padding: 4px;">
+	<a th:if="${page.hasPreviousPage}" th:href="@{/employee/page/1}" style="padding: 4px">首页</a>
+	<a th:if="${page.hasPreviousPage}" th:href="@{'/employee/page/' + ${page.prePage}}" style="padding: 4px">上一页</a>
+	<span th:each="pageNum : ${page.navigatepageNums}">
+		<a th:if="${page.pageNum == pageNum}" th:href="@{'/employee/page/' + ${pageNum}}"
+		   th:text="${'[' + pageNum + ']'}" style="color: red; padding: 4px"></a>
+		<a th:if="${page.pageNum != pageNum}" th:href="@{'/employee/page/' + ${pageNum}}" th:text="${pageNum}"
+		   style="padding: 4px"></a>
+	</span>
+	<a th:if="${page.hasNextPage}" th:href="@{'/employee/page/' + ${page.nextPage}}" style="padding: 4px">下一页</a>
+	<a th:if="${page.hasNextPage}" th:href="@{'/employee/page/' + ${page.pages}}" style="padding: 4px">尾页</a>
+</div>
+<form id="deleteForm" method="post">
+	<input type="hidden" name="_method" value="delete">
+	<input type="hidden" name="url">
+</form>
+<script>
+	let deleteForm = document.getElementById("deleteForm");
+	let deleteLink = document.getElementsByClassName("deleteLink");
+    for (let link of deleteLink) {
+        link.onclick = function (event) {
+			event.preventDefault()
+			deleteForm.action = event.target.href
+			deleteForm.url.value = window.location.href
+			deleteForm.submit()
+        }
+	}
+    
+</script>
+</body>
+</html>

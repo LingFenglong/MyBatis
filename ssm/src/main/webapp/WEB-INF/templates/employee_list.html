@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Employee List</title>
+	<link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+<table>
+	<tr>
+		<th colspan="12">员工列表</th>
+	</tr>
+	<tr>
+		<th>序号</th>
+		<th>员工姓名</th>
+		<th>员工ID</th>
+		<th>邮箱</th>
+		<th>电话号码</th>
+		<th>入职日期</th>
+		<th>工作ID</th>
+		<th>薪资</th>
+		<th>提成</th>
+		<th>经理ID</th>
+		<th>部门ID</th>
+		<th>操作</th>
+	</tr>
+	<tr	th:each="employee, status : ${employees}">
+		<td th:text="${status.count}"></td>
+		<td th:text="${employee.firstName + ' ' + employee.lastName}"></td>
+		<td th:text="${employee.employeeId}"></td>
+		<td th:text="${employee.email}"></td>
+		<td th:text="${employee.phoneNumber}"></td>
+		<td th:text="${employee.hireDate}"></td>
+		<td th:text="${employee.jobId}"></td>
+		<td th:text="${employee.salary}"></td>
+		<td th:text="${employee.commissionPct}"></td>
+		<td th:text="${employee.managerId}"></td>
+		<td th:text="${employee.departmentId}"></td>
+		<td>
+			<a href="">删除</a>
+			<a href="">修改</a>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

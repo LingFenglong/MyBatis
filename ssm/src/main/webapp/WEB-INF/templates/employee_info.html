@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Employee Info</title>
+	<link rel="stylesheet" th:href="@{/static/css/index_work.css}">
+</head>
+<body>
+<form th:action="@{/employee}" method="post">
+	<input type="hidden" name="_method" value="put"/>
+	<table>
+		<tr>
+			<th colspan="4">员工信息</th>
+		</tr>
+		<tr>
+			<th>员工名</th>
+			<td>
+				<label>
+					<input type="text" name="firstName" th:value="${employee.firstName}"/>
+				</label>
+			</td>
+
+			<th>员工姓</th>
+			<td>
+				<label>
+					<input type="text" name="lastName" th:value="${employee.lastName}"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">员工ID</th>
+			<td colspan="2" th:text="${employee.employeeId}"></td>
+		</tr>
+		<tr>
+			<th colspan="2">邮箱</th>
+			<td colspan="2">
+				<label>
+					<input type="text" name="email" th:value="${employee.email}"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">电话号码</th>
+			<td colspan="2">
+				<label>
+					<input type="text" name="phoneNumber" th:value="${employee.phoneNumber}"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">入职日期</th>
+			<td colspan="2">
+				<label>
+					<input type="text" name="hireDate" th:value="${#dates.format(employee.hireDate, 'yyyy/MM/dd')}"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">工作内容</th>
+			<td colspan="2">
+				<label>
+					<input type="text" name="jobTitle" th:value="${employee.job.jobTitle}"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">薪资</th>
+			<td colspan="2">
+				<label>
+					<input type="text" name="salary" th:value="${employee.salary}"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">提成</th>
+			<td colspan="2">
+				<label>
+					<input th:if="${employee.commissionPct} != null" type="text" name="commissionPct" th:text="${employee.commissionPct}"/>
+				</label>
+				<label>
+					<input th:if="${employee.commissionPct} == null" type="text" name="commissionPct" value="无"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th>经理名</th>
+			<td>
+				<label>
+					<input th:if="${employee.manager} != null"
+						   type="text" name="mFirstName" th:value="${employee.manager.firstName}"/>
+				</label>
+				<label>
+					<input th:if="${employee.manager} == null"
+						   type="text" name="lastName" value="无"/>
+				</label>
+			</td>
+
+			<th>经理姓</th>
+			<td>
+				<label>
+					<input th:if="${employee.manager} != null"
+						   type="text" name="mLastName" th:value="${employee.manager.lastName}"/>
+				</label>
+				<label>
+					<input th:if="${employee.manager} == null"
+						   type="text" name="mLastName" value="无"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<th colspan="2">部门名称</th>
+			<td colspan="2">
+				<label>
+					<input type="text" name="departmentName" th:value="${employee.department.departmentName}"/>
+				</label>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+				<input type="submit" value="提交"/>
+			</td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>
