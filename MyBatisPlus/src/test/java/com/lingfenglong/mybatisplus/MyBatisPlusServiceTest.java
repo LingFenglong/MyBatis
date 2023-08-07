@@ -24,9 +24,9 @@ public class MyBatisPlusServiceTest {
     void testInsertMore() {
         boolean result = userService.saveBatch(
                 List.of(
-                        new User(null, "zhangsan", 19, "aaa@qq.com"),
-                        new User(null, "lisi", 20, "abc@qq.com"),
-                        new User(null, "wangwu", 15, "acb@qq.com")
+                        new User(null, "zhangsan", 19, "aaa@qq.com", null),
+                        new User(null, "lisi", 20, "abc@qq.com", null),
+                        new User(null, "wangwu", 15, "acb@qq.com", null)
                 )
         );
         System.out.println("result = " + result);

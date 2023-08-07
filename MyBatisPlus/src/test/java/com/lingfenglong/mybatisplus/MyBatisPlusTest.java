@@ -22,7 +22,7 @@ public class MyBatisPlusTest {
 
     @Test
     public void testInsert() {
-        User user = new User(null, "zhangsan", 18, "aaa.@qq.com");
+        User user = new User(null, "zhangsan", 18, "aaa.@qq.com", null);
         int result = userMapper.insert(user);
         System.out.println("result = " + result);
         System.out.println("user.getId() = " + user.getId());
@@ -42,7 +42,7 @@ public class MyBatisPlusTest {
 
     @Test
     void testUpdate() {
-        User user = new User(4L, "李四", 23, "lisi@qq.com");
+        User user = new User(4L, "李四", 23, "lisi@qq.com", null);
         int result = userMapper.updateById(user);
         System.out.println("result = " + result);
     }
